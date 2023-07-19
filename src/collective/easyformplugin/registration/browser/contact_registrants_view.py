@@ -4,6 +4,7 @@ from collective.easyformplugin.registration import _
 from collective.easyformplugin.registration.interfaces import IRegistrantData
 from email.mime.text import MIMEText
 from plone import api
+from plone.app.textfield import RichText
 from plone.registry.interfaces import IRegistry
 from plone.supermodel import model
 from plone.z3cform import layout
@@ -25,7 +26,7 @@ logger = logging.getLogger(__name__)
 
 class IContactRegistrantsForm(model.Schema):
     subject = schema.TextLine(title=_(u"Subject"), required=True)
-    message = schema.Text(title=_(u"Message"), required=True)
+    message = RichText(title=_(u"Message"), required=True)
 
     registrants = schema.Tuple(
         title=_(u"Registrants"),
@@ -159,7 +160,7 @@ class ContactRegistrantsForm(form.Form):
         host = api.portal.get_tool(name="MailHost")
 
         message = self.generate_mail(data, encoding)
-        message = MIMEText(message, "plain", encoding)
+        message = MIMEText(message, "html", encoding)
         for send_to_address in email_addresses:
             # This actually sends out the mail
             host.send(

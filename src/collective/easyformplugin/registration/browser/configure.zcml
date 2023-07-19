@@ -22,7 +22,7 @@
         for="collective.easyformplugin.registration.interfaces.IEasyFormRegistrationEnabled"
         name="contact-registrants"
         class=".contact_registrants_view.ContactRegistrantsView"
-        permission="zope2.View"
+        permission="cmf.ManagePortal"
         layer="collective.easyformplugin.registration.interfaces.ICollectiveEasyFormpluginRegistrationLayer"
         />
     <browser:page
